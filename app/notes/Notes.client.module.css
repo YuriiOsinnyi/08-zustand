@@ -1,0 +1,67 @@
+/* app/notes/Notes.client.module.css */
+
+.main {
+    width: 100%;
+    padding: 40px 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 20px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+}
+
+.createBtn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.createBtn:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.createBtn:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 20px 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        gap: 16px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .createBtn {
+        width: 100%;
+        text-align: center;
+        padding: 12px 20px;
+    }
+}
