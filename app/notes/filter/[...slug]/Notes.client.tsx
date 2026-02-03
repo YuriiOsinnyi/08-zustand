@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -9,8 +10,6 @@ import { fetchNotes } from '@/lib/api';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
 import css from './NotesPage.module.css';
 
 interface Props {
@@ -21,8 +20,6 @@ interface Props {
 export default function NotesPageClient({ initialPage, tag }: Props) {
    const [page, setPage] = useState(initialPage);
    const [query, setQuery] = useState<string | undefined>(undefined);
-
-   const [isModalOpen, setIsModalOpen] = useState(false);
 
    const { data } = useQuery({
       queryKey: ['notes', page, tag, query],
@@ -40,9 +37,9 @@ export default function NotesPageClient({ initialPage, tag }: Props) {
       <div className={css.app}>
          <div className={css.toolbar}>
             <SearchBox onSearch={(e) => handleSearch(e.target.value)} />
-            <button className={css.button} onClick={() => setIsModalOpen(true)}>
+            <Link href="/notes/action/create" className={css.button}>
                Create note +
-            </button>
+            </Link>
             {data && data.totalPages > 1 && (
                <Pagination
                   currentPage={page}
@@ -53,12 +50,6 @@ export default function NotesPageClient({ initialPage, tag }: Props) {
          </div>
 
          {data && data.notes.length >= 1 && <NoteList notes={data.notes} />}
-
-         {isModalOpen && (
-            <Modal onClose={() => setIsModalOpen(false)}>
-               <NoteForm onClose={() => setIsModalOpen(false)} />
-            </Modal>
-         )}
       </div>
    );
 }
