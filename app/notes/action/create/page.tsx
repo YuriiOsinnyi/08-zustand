@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import css from './page.module.css';
+import css from './CreateNote.module.css';
 import NoteForm from '@/components/NoteForm/NoteForm';
 
 export const metadata: Metadata = {
