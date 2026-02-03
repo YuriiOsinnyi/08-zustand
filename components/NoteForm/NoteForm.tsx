@@ -2,23 +2,31 @@
 
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useNoteStore, initialDraft } from '@/lib/store/noteStore';
+import { useNoteStore } from '@/lib/store/noteStore';
 import css from './NoteForm.module.css';
 
-interface NoteFormProps {
-   onClose?: () => void;
-}
-
-export default function NoteForm({ onClose }: NoteFormProps) {
+export default function NoteForm() {
    const router = useRouter();
    const formRef = useRef<HTMLFormElement>(null);
    const { draft, setDraft, clearDraft } = useNoteStore();
 
    useEffect(() => {
       if (formRef.current) {
-         formRef.current.title.value = draft.title;
-         formRef.current.content.value = draft.content;
-         formRef.current.tag.value = draft.tag;
+         const titleInput = formRef.current.querySelector<HTMLInputElement>(
+            'input[name="title"]'
+         );
+         const contentInput =
+            formRef.current.querySelector<HTMLTextAreaElement>(
+               'textarea[name="content"]'
+            );
+         const tagInput =
+            formRef.current.querySelector<HTMLInputElement>(
+               'input[name="tag"]'
+            );
+
+         if (titleInput) titleInput.value = draft.title;
+         if (contentInput) contentInput.value = draft.content;
+         if (tagInput) tagInput.value = draft.tag;
       }
    }, [draft]);
 
